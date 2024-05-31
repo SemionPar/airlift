@@ -761,7 +761,16 @@ public class JettyHttpClient
         requireNonNull(request, "request is null");
         requireNonNull(responseHandler, "responseHandler is null");
 
-        request = applyRequestFilters(request);
+        try {
+            request = applyRequestFilters(request);
+        }
+        catch (RuntimeException e) {
+            startSpan(request)
+                    .setStatus(StatusCode.ERROR, e.getMessage())
+                    .recordException(e, Attributes.of(SemanticAttributes.EXCEPTION_ESCAPED, true))
+                    .end();
+            return new FailedHttpResponseFuture<>(e);
+        }
 
         Span span = startSpan(request);
         request = injectTracing(request, span);
