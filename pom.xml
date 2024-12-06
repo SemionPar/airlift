@@ -74,7 +74,7 @@
     <scm>
         <connection>scm:git:git://github.com/airlift/airlift.git</connection>
         <developerConnection>scm:git:git@github.com:airlift/airlift.git</developerConnection>
-        <tag>243</tag>
+        <tag>243-jetty1</tag>
         <url>https://github.com/airlift/airlift/tree/master</url>
     </scm>
 
